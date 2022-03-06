@@ -14,12 +14,13 @@ const fetchAttributes = async ({ queryKey }: QueryParamsType) => {
   // const searchString = stringifySearchQuery({
   //   name: text,
   // });
-  const url = `${API_ENDPOINTS.ATTRIBUTES}?product_id=${params.product_id}&orderBy=updated_at&sortedBy=desc`;
 
+  const url = `${API_ENDPOINTS.ATTRIBUTES}?product_id=${params.product_id}&orderBy=updated_at&sortedBy=desc`;
+  console.log("RUEEL",url)
 
   const { data } = await Attribute.all(url);
     
-  console.log(data)
+
   return { attributes: data };
   
 };

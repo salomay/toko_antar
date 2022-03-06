@@ -1989,6 +1989,7 @@ exports.attributes = function(req, res) {
              " WHERE a.id='"+id+"' ";
         }
     
+        console.log("ATTRIBUTE",query)
     
     
         connection.query(query+
