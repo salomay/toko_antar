@@ -1,0 +1,26 @@
+{
+  "env": {
+    "FRAMEWORK_PROVIDER": "put_your_provider_name_here",
+    "NEXT_PUBLIC_REST_API_ENDPOINT": "put_your_rest_api_endpoint_here",
+    "NEXT_PUBLIC_GRAPHQL_API_ENDPOINT": "put_your_graphql_api_endpoint_here",
+    "NEXT_PUBLIC_SITE_URL": "put_your_site_url_here",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "put_your_stripe_publishable_key_here",
+    "NEXTAUTH_URL": "put_your_site_url_here/",
+    "SECRET": "put_your_secret_key_here",
+    "GOOGLE_CLIENT_ID": "put_your_google_client_id_here",
+    "GOOGLE_CLIENT_SECRET": "put_your_google_client_secret_here"
+  },
+  "build": {
+    "env": {
+      "FRAMEWORK_PROVIDER": "put_your_provider_name_here",
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "put_your_rest_api_endpoint_here",
+      "NEXT_PUBLIC_GRAPHQL_API_ENDPOINT": "put_your_graphql_api_endpoint_here",
+      "NEXT_PUBLIC_SITE_URL": "put_your_site_url_here",
+      "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "put_your_stripe_publishable_key_here",
+      "NEXTAUTH_URL": "put_your_site_url_here/",
+      "SECRET": "put_your_secret_key_here",
+      "GOOGLE_CLIENT_ID": "put_your_google_client_id_here",
+      "GOOGLE_CLIENT_SECRET": "put_your_google_client_secret_here"
+    }
+  }
+}
