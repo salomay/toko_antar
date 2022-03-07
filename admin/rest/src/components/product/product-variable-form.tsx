@@ -39,15 +39,14 @@ function getCartesianProduct(values: any) {
 
   // console.log("TEST",values)
 
-  const formattedValues = values?.map((v: any) =>
-      v.variation_options.options?.map((a: any) => ({ name: a.name, value: a.value })) 
-      ).filter((i: any) => i !== undefined);
+  // const formattedValues = values?.map((v: any) =>
+  //     v.variation_options.options?.map((a: any) => ({ name: a.name, value: a.value })) 
+  //     ).filter((i: any) => i !== undefined);
  
-  if (isEmpty(formattedValues)) return [];
-  // var data = formattedValues;
-  // console.log("CARTESIAN",formattedValues)
-  return formattedValues;
-  // return [];
+  // if (isEmpty(formattedValues)) return [];
+
+  // return formattedValues;
+  return [];
 
 }
 
@@ -108,6 +107,53 @@ function getVariationGroup(values: any) {
 
 }
 
+
+function getExistingGroup(values: any) {
+
+  var val1 = [];
+ 
+  var bantu ="";
+ 
+ 
+   values?.map((v: any) =>{
+ 
+  
+ 
+     var data ={
+       name:v.attribute.name, 
+       id: v.attribute.id, 
+       slug: v.attribute.slug, 
+       value: v.value 
+     }
+ 
+    
+     
+     if(v.attribute.name != bantu){
+ 
+       
+       val1.push(data)
+ 
+     }
+ 
+     bantu=v.attribute.name;
+     
+ 
+   });
+ 
+    
+  
+   // if (isEmpty(formattedValues)) return [];
+   // var data = formattedValues;
+   // console.log("CARTESIAN",formattedValues)
+   // return formattedValues;
+ 
+   // console.log("TEST",val1)
+   // console.log("TEST",val);
+   if (isEmpty(val1)) return [];
+   return val1; 
+ 
+ }
+ 
 export default function ProductVariableForm({  initialValues }: IProps) {
   const { t } = useTranslation();
 
@@ -145,12 +191,14 @@ export default function ProductVariableForm({  initialValues }: IProps) {
   
   const cartesianProduct = getCartesianProduct(fields);
   const variationGroup = getVariationGroup(fields);
+  const existingGroup = getExistingGroup(fields);
+  
   const variations = watch("variations");
   // var data_cartesian = [];
   // data_cartesian.push(cartesianProduct[0])
 
   const attributes = data?.attributes;
-  // console.log("DATA",fields)
+  console.log("DATA",variationGroup)
 //   data_cartesian.map((v :any)=>{
 
 //   })
@@ -181,7 +229,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
          
             {variationGroup?.map((field: any, index: number) => {
 
-          
+              // console.log(field)
               return (
                 <div
                   key={field.id}
@@ -208,12 +256,12 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                         defaultValue={field[index]}
                         getOptionLabel={(option: any) => option.name}
                         getOptionValue={(option: any) => option.id}
-                        options={filteredAttributes(attributes,field)}
+                        options={filteredAttributes(attributes,existingGroup)}
                         isLoading={isLoading}
                         // onChange={(e: any)=> onChangeAttributeValue(e.id,e.name,index)}
                       />
                     </div>
-
+                  
                     <div className="mt-5 col-span-2">
                       <Label>{t("form:input-label-attribute-value")}*</Label>
                       <Select
@@ -241,7 +289,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
               disabled={fields.length === attributes?.length}
               onClick={(e: any) => {
                 e.preventDefault();
-                append({ attribute: "", value: "",variations_options:"" });
+                append({ attribute_id :"",attribute:[], value: "",meta: "",variations_options:[] });
               }}
               type="button"
             >
