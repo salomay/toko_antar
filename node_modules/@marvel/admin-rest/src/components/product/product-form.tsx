@@ -173,15 +173,12 @@ export default function CreateOrUpdateProductForm({ initialValues }: IProps) {
             original: initialValues?.image?.original,
             id: initialValues?.image?.id,
           },
-          
-          // tags:initialValues?.tag  ? tag.find(
-          //   (singleIcon) => singleIcon.value === initialValues?.tags.tag_id!
-          // )
-          // : "",
-          isVariation:
-            initialValues.variations?.length &&
-            initialValues.variation_options?.length ? true: false,
-          // variations: getFormattedVariations(initialValues?.variations),
+           isVariation:
+          initialValues.variations?.length &&
+          initialValues.variation_options?.length
+            ? true
+            : false,
+        variations: getFormattedVariations(initialValues?.variations),
           
         })
       : defaultValues,
@@ -501,7 +498,7 @@ function onChangeParent(id: any,name:any){
 
           {/* Simple Type */}
           
-            <ProductSimpleForm initialValues={initialValues} />
+          <ProductSimpleForm initialValues={initialValues} />
 
           {/* Variation Type */}
           

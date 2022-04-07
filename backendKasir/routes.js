@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(app) {
+module.exports = function (app) {
     var controller = require('./controllerAdmin');
     var controllerKasir = require('./controllerKasir');
-   
+
     app.route('/api')
         .get(controller.index);
 
@@ -15,14 +15,14 @@ module.exports = function(app) {
 
     app.route('/token')
         .get(controller.token);
-    
+
     app.route('/api/register')
         .post(controller.register);
 
     app.route('/api/settings')
         .get(controller.settings);
 
-        
+
     app.route('/api/me')
         .get(controller.me);
 
@@ -32,6 +32,9 @@ module.exports = function(app) {
     app.route('/api/orders')
         .get(controller.orders);
 
+    app.route('/api/order-status')
+        .get(controller.order_status);
+
     app.route('/api/popular-products')
         .get(controller.popular_products);
 
@@ -40,7 +43,7 @@ module.exports = function(app) {
 
     app.route('/api/users')
         .get(controller.users)
-        
+
     app.route('/api/users/')
         .post(controller.userUpdate);
 
@@ -49,10 +52,10 @@ module.exports = function(app) {
 
     app.route('/api/kabupaten')
         .get(controller.kabupaten);
-    
+
     app.route('/api/kecamatan')
         .get(controller.kecamatan);
-        
+
     app.route('/api/kelurahan')
         .get(controller.kelurahan);
 
@@ -67,7 +70,7 @@ module.exports = function(app) {
 
     app.route('/api/types')
         .get(controller.types)
-                
+
     app.route('/api/categories')
         .get(controller.categories);
 
@@ -82,7 +85,7 @@ module.exports = function(app) {
 
     app.route('/api/attributes')
         .get(controller.attributes);
-        
+
     app.route('/api/taxes')
         .get(controller.taxes);
 
@@ -110,7 +113,7 @@ module.exports = function(app) {
 
     app.route('/api/attributes')
         .post(controller.attributes_input);
-        
+
     app.route('/api/attributes/:id')
         .put(controller.attributes_update);
 
@@ -144,20 +147,20 @@ module.exports = function(app) {
     app.route('/api/images')
         .get(controller.getImages);
 
-  
-        
-        
-        
-        
-           
 
-        
 
-        
 
-        
-        
-//================================================================
+
+
+
+
+
+
+
+
+
+
+    //================================================================
 
     app.route('api/loginKasir')
         .post(controllerKasir.loginKasir);
@@ -170,7 +173,7 @@ module.exports = function(app) {
 
     app.route('api/viewListMenu')
         .post(controllerKasir.viewListMenu);
-        
+
     app.route('api/getIDOrder')
         .post(controllerKasir.getIDOrder);
 
@@ -179,13 +182,13 @@ module.exports = function(app) {
 
     app.route('api/countOrder')
         .post(controllerKasir.countOrder);
-    
+
     app.route('api/getImagesKasir')
         .get(controllerKasir.getImagesKasir);
 
     app.route('api/viewDataPenjualan')
         .post(controllerKasir.viewDataPenjualan);
-    
+
     app.route('api/viewListOrder')
         .post(controllerKasir.viewListOrder);
 
@@ -204,34 +207,34 @@ module.exports = function(app) {
 
     app.route('api/viewMenuKasirPagination')
         .post(controllerKasir.viewMenuKasirPagination);
-        
+
     app.route('api/viewMenuKasirPaginationOpenBill')
         .post(controllerKasir.viewMenuKasirPaginationOpenBill);
-    
+
     app.route('api/viewNonMenuKasirPagination')
         .post(controllerKasir.viewNonMenuKasirPagination);
 
     app.route('api/updateStatusDoneWithDiskon')
         .post(controllerKasir.updateStatusDoneWithDiskon);
-    
+
     app.route('api/updateStatusDoneWithBayar')
         .post(controllerKasir.updateStatusDoneWithBayar);
-    
+
     app.route('api/selectOrder')
         .post(controllerKasir.selectOrder);
 
     app.route('api/addOrder2')
         .post(controllerKasir.addOrder2);
-        
-        
-        
 
-        
 
-    
 
-        
 
-        
-        
+
+
+
+
+
+
+
+
 };

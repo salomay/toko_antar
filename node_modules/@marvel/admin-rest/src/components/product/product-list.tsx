@@ -75,7 +75,7 @@ const ProductList = ({ products, onPagination, onSort, onOrder }: IProps) => {
           height={42}
           className="rounded overflow-hidden"
         />
-        {console.log(image?.thumbnail)}
+        {/* {console.log(image?.thumbnail)} */}
         </>
       ),
     },

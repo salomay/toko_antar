@@ -25,6 +25,8 @@ const OrderStatusList = ({
   onOrder,
 }: IProps) => {
   const { data, paginatorInfo } = order_statuses!;
+
+  console.log(JSON.stringify(data))
   const { t } = useTranslation();
   const { alignLeft, alignRight } = useIsRTL();
 

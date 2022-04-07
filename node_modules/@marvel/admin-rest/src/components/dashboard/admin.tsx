@@ -29,7 +29,6 @@ export default function Dashboard() {
     }
   );
 
-  console.log(data?.totalRevenue)
 
   const {
     data: orderData,

@@ -14,162 +14,37 @@ import { useEffect } from "react";
 import { Product } from "@ts-types/generated";
 import { useTranslation } from "next-i18next";
 import { useAttributesQuery } from "@data/attributes/use-attributes.query";
-import Select from "@components/ui/select/select";
 
 type IProps = {
   initialValues?: Product | null;
-  // shopId: string | undefined;
 };
 
 function filteredAttributes(attributes: any, variations: any) {
   let res = [];
   res = attributes?.filter((el: any) => {
     return !variations.find((element: any) => {
-      return element?.slug === el?.slug;
+      return element?.attribute?.slug === el?.slug;
     });
   });
-
-
- 
-
   return res;
 }
 
 function getCartesianProduct(values: any) {
 
-  // console.log("TEST",values)
-
-  // const formattedValues = values?.map((v: any) =>
-  //     v.variation_options.options?.map((a: any) => ({ name: a.name, value: a.value })) 
-  //     ).filter((i: any) => i !== undefined);
- 
-  // if (isEmpty(formattedValues)) return [];
-
-  // return formattedValues;
-  return [];
-
+  const formattedValues = values
+    ?.map((v: any) => v.value?.map((a: any) => ({ name: v.attribute.name, value: a.value }))
+    )
+    .filter((i: any) => i !== undefined);
+  if (isEmpty(formattedValues)) return [];
+  return cartesian(...formattedValues);
 }
 
-function getVariationGroup(values: any) {
-
- var val1 = [];
-
- var bantu ="";
-
- var val2=[];
-
-  values?.map((v: any) =>{
-
- 
-
-    var data ={
-      name:v.attribute.name, 
-      id: v.attribute.id, 
-      slug: v.attribute.slug, 
-      value: v.value 
-    }
-
-   
-    
-    if(v.attribute.name != bantu){
-
-      val2=[];
-
-      val2.push(data)
-      
-      val1.push(val2)
-
-    }else{
-
-      
-      val2.push(data)
-      
-      
- 
-    }
-
-    bantu=v.attribute.name;
-    
-
-  });
-
-   
- 
-  // if (isEmpty(formattedValues)) return [];
-  // var data = formattedValues;
-  // console.log("CARTESIAN",formattedValues)
-  // return formattedValues;
-
-  // console.log("TEST",val1)
-  // console.log("TEST",val);
-  if (isEmpty(val1)) return [];
-  return val1; 
-
-}
-
-
-function getExistingGroup(values: any) {
-
-  var val1 = [];
- 
-  var bantu ="";
- 
- 
-   values?.map((v: any) =>{
- 
-  
- 
-     var data ={
-       name:v.attribute.name, 
-       id: v.attribute.id, 
-       slug: v.attribute.slug, 
-       value: v.value 
-     }
- 
-    
-     
-     if(v.attribute.name != bantu){
- 
-       
-       val1.push(data)
- 
-     }
- 
-     bantu=v.attribute.name;
-     
- 
-   });
- 
-    
-  
-   // if (isEmpty(formattedValues)) return [];
-   // var data = formattedValues;
-   // console.log("CARTESIAN",formattedValues)
-   // return formattedValues;
- 
-   // console.log("TEST",val1)
-   // console.log("TEST",val);
-   if (isEmpty(val1)) return [];
-   return val1; 
- 
- }
- 
-export default function ProductVariableForm({  initialValues }: IProps) {
+export default function ProductVariableForm({ initialValues }: IProps) {
   const { t } = useTranslation();
+  const { data, isLoading } = useAttributesQuery('');
 
 
-  const { data, isLoading } = useAttributesQuery({
-    // product_id: initialValues  ? initialValues?.id : '' ,
-    product_id: '' ,
-  });
-
-
-  // const { data_attribute_value, isLoading_attribute_value } = useAttributesQuery({
-  //   // product_id: initialValues  ? initialValues?.id : '' ,
-  //   product_id: '' ,
-  // });
-
-
+  console.log("SHOP",data)
 
   const {
     register,
@@ -186,29 +61,17 @@ export default function ProductVariableForm({  initialValues }: IProps) {
     name: "variations",
   });
 
-  
+   
+  console.log("FIELDS",fields)
+
+  const cartesianProduct = getCartesianProduct(getValues("variations"));
 
   
-  const cartesianProduct = getCartesianProduct(fields);
-  const variationGroup = getVariationGroup(fields);
-  const existingGroup = getExistingGroup(fields);
-  
+  console.log("VARIATIONS",getValues("variations"))
+
   const variations = watch("variations");
-  // var data_cartesian = [];
-  // data_cartesian.push(cartesianProduct[0])
 
   const attributes = data?.attributes;
-  console.log("DATA",variationGroup)
-//   data_cartesian.map((v :any)=>{
-
-//   })
-
-
-  // function onChangeAttributeValue(id: any,name: any,index: any){     
-
-  // }
-
-  // console.log("TEST",attributes);
   return (
     <div className="flex flex-wrap my-5 sm:my-8">
       <Description
@@ -226,15 +89,12 @@ export default function ProductVariableForm({  initialValues }: IProps) {
             {t("form:form-title-options")}
           </Title>
           <div>
-         
-            {variationGroup?.map((field: any, index: number) => {
-
-              // console.log(field)
+            {fields?.map((field: any, index: number) => {
               return (
                 <div
                   key={field.id}
                   className="border-b border-dashed border-border-200 last:border-0 p-5 md:p-8"
-                  >
+                >
                   <div className="flex items-center justify-between">
                     <Title className="mb-0">
                       {t("form:form-title-options")} {index + 1}
@@ -251,29 +111,29 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                   <div className="grid grid-cols-fit gap-5">
                     <div className="mt-5">
                       <Label>{t("form:input-label-attribute-name")}*</Label>
-                      <Select
+                      <SelectInput
                         name={`variations[${index}].attribute`}
-                        defaultValue={field[index]}
+                        control={control}
+                        defaultValue={field.attribute}
                         getOptionLabel={(option: any) => option.name}
                         getOptionValue={(option: any) => option.id}
-                        options={filteredAttributes(attributes,existingGroup)}
+                        options={filteredAttributes(attributes, variations)!}
                         isLoading={isLoading}
-                        // onChange={(e: any)=> onChangeAttributeValue(e.id,e.name,index)}
                       />
                     </div>
-                  
+
                     <div className="mt-5 col-span-2">
                       <Label>{t("form:input-label-attribute-value")}*</Label>
-                      <Select
+                      <SelectInput
                         isMulti
-                        name={`variations[${index}].value`}                        
-                        defaultValue={field}
+                        name={`variations[${index}].value`}
+                        control={control}
+                        defaultValue={field.value}
                         getOptionLabel={(option: any) => option.value}
                         getOptionValue={(option: any) => option.id}
-                        // options={
-                        //   // watch(`variations[${index}].value`)?.
-                        //   field.attribute.values
-                        // }
+                        options={
+                          watch(`variations[${index}].attribute`)?.values
+                        }
                       />
                     </div>
                   </div>
@@ -281,15 +141,13 @@ export default function ProductVariableForm({  initialValues }: IProps) {
               );
             })}
           </div>
-          
-         
 
           <div className="px-5 md:px-8">
             <Button
               disabled={fields.length === attributes?.length}
               onClick={(e: any) => {
                 e.preventDefault();
-                append({ attribute_id :"",attribute:[], value: "",meta: "",variations_options:[] });
+                append({ attribute: "", value: [] });
               }}
               type="button"
             >
@@ -298,8 +156,6 @@ export default function ProductVariableForm({  initialValues }: IProps) {
           </div>
 
           {/* Preview generation section start */}
-        
-           {/* {console.log(!!cartesianProduct?.length)}  */}
           {!!cartesianProduct?.length && (
             <div className="border-t border-dashed border-border-200 pt-5 md:pt-8 mt-5 md:mt-8">
               <Title className="text-lg uppercase text-center px-5 md:px-8 mb-0">
@@ -307,15 +163,11 @@ export default function ProductVariableForm({  initialValues }: IProps) {
               </Title>
               {cartesianProduct.map(
                 (fieldAttributeValue: any, index: number) => {
-
-                  // console.log("DATANYA",fieldAttributeValue);
-                  
                   return (
                     <div
                       key={`fieldAttributeValues-${index}`}
                       className="border-b last:border-0 border-dashed border-border-200 p-5 md:p-8 md:last:pb-0 mb-5 last:mb-8 mt-5"
                     >
-                      
                       <Title className="!text-lg mb-8">
                         {t("form:form-title-variant")}:{" "}
                         <span className="text-blue-600 font-normal">
@@ -332,16 +184,15 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                       />
 
                       <input
-                        {...register(`variations.${index}.variation_options.options.id`)}
+                        {...register(`variation_options.${index}.id`)}
                         type="hidden"
                       />
 
-
-                      <div className="grid grid-c ols-2 gap-5">
+                      <div className="grid grid-cols-2 gap-5">
                         <Input
                           label={`${t("form:input-label-price")}*`}
                           type="number"
-                          {...register(`variations.${index}.variation_options.price`)}
+                          {...register(`variation_options.${index}.price`)}
                           error={t(
                             errors.variation_options?.[index]?.price?.message
                           )}
@@ -351,7 +202,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                         <Input
                           label={t("form:input-label-sale-price")}
                           type="number"
-                          {...register(`variations.${index}.variation_options.sale_price`)}
+                          {...register(`variation_options.${index}.sale_price`)}
                           error={t(
                             errors.variation_options?.[index]?.sale_price
                               ?.message
@@ -361,7 +212,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                         />
                         <Input
                           label={`${t("form:input-label-sku")}*`}
-                          {...register(`variations.${index}.variation_options.sku`)}
+                          {...register(`variation_options.${index}.sku`)}
                           error={t(
                             errors.variation_options?.[index]?.sku?.message
                           )}
@@ -371,7 +222,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                         <Input
                           label={`${t("form:input-label-quantity")}*`}
                           type="number"
-                          {...register(`variations.${index}.variation_options.quantity`)}
+                          {...register(`variation_options.${index}.quantity`)}
                           error={t(
                             errors.variation_options?.[index]?.quantity?.message
                           )}
@@ -381,7 +232,7 @@ export default function ProductVariableForm({  initialValues }: IProps) {
                       </div>
                       <div className="mb-5 mt-5">
                         <Checkbox
-                          {...register(`variations.${index}.variation_options.is_disable`)}
+                          {...register(`variation_options.${index}.is_disable`)}
                           error={t(
                             errors.variation_options?.[index]?.is_disable
                               ?.message
