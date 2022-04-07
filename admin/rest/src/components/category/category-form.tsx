@@ -94,7 +94,6 @@ export default function CreateOrUpdateCategoriesForm({
     resolver: yupResolver(categoryValidationSchema),
   });
 
-  console.log("INIT",initialValues)
 
   
   const [selectTypes,setTypes] = useState({
@@ -117,10 +116,8 @@ export default function CreateOrUpdateCategoriesForm({
     text:  selectTypes?.id,
   });
 
-  const { mutate: createCategory, isLoading: creating } =
-    useCreateCategoryMutation();
-  const { mutate: updateCategory, isLoading: updating } =
-    useUpdateCategoryMutation();
+  const { mutate: createCategory, isLoading: creating } = useCreateCategoryMutation();
+  const { mutate: updateCategory, isLoading: updating } = useUpdateCategoryMutation();
 
   
 

@@ -15,6 +15,7 @@ const PopularProductList = ({ products, title }: IProps) => {
   const { t } = useTranslation();
   const { alignLeft, alignRight } = useIsRTL();
 
+
   let columns = [
     {
       title: t("table:table-item-id"),
@@ -41,18 +42,6 @@ const PopularProductList = ({ products, title }: IProps) => {
       width: 120,
       render: (type: any) => (
         <span className="whitespace-nowrap">{type?.name}</span>
-      ),
-    },
-
-    {
-      title: t("table:table-item-shop"),
-      dataIndex: "shop",
-      key: "shop",
-      width: 120,
-      align: "center",
-      ellipsis: true,
-      render: (shop: Shop) => (
-        <span className="whitespace-nowrap truncate">{shop?.name}</span>
       ),
     },
 
@@ -97,9 +86,9 @@ const PopularProductList = ({ products, title }: IProps) => {
     },
   ];
 
-  if (router?.query?.shop) {
-    columns = columns?.filter((column) => column?.key !== "shop");
-  }
+  // if (router?.query?.shop) {
+  //   columns = columns?.filter((column) => column?.key !== "shop");
+  // }
 
   return (
     <div className="rounded overflow-hidden shadow mb-6">
