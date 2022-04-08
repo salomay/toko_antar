@@ -1,5 +1,4 @@
 import Select from "@components/ui/select/select";
-import { useEffect,useState } from "react";
 import { Controller } from "react-hook-form";
 
 interface SelectInputProps {
@@ -7,9 +6,7 @@ interface SelectInputProps {
   rules?: any;
   name: string;
   options: object[];
-  // defaultValue : {id:string,nama:string};
   [key: string]: unknown;
-  // onChange:any;
 }
 
 const SelectInput = ({
@@ -22,24 +19,15 @@ const SelectInput = ({
   isMulti,
   isClearable,
   isLoading,
-  // defaultValue,
-  // onChange,
   ...rest
 }: SelectInputProps) => {
-
-  
-  // {console.log("Pronvinsi",options)} 
-
   return (
-   
     <Controller
       control={control}
       name={name}
       rules={rules}
-      
       {...rest}
-      render={({ field }) => ( 
-               
+      render={({ field }) => (
         <Select
           {...field}
           getOptionLabel={getOptionLabel}
@@ -48,14 +36,9 @@ const SelectInput = ({
           isClearable={isClearable}
           isLoading={isLoading}
           options={options}
-          // value={defaultValue}
-          // onChange={onchange}
-           
-         
         />
       )}
     />
-    
   );
 };
 

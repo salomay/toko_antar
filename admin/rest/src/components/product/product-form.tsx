@@ -498,7 +498,7 @@ function onChangeParent(id: any,name:any){
 
           {/* Simple Type */}
           
-          <ProductSimpleForm initialValues={initialValues} />
+          {/* <ProductSimpleForm initialValues={initialValues} /> */}
 
           {/* Variation Type */}
           

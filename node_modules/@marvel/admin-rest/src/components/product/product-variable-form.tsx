@@ -43,9 +43,6 @@ export default function ProductVariableForm({ initialValues }: IProps) {
   const { t } = useTranslation();
   const { data, isLoading } = useAttributesQuery('');
 
-
-  console.log("SHOP",data)
-
   const {
     register,
     control,
@@ -61,13 +58,11 @@ export default function ProductVariableForm({ initialValues }: IProps) {
     name: "variations",
   });
 
-   
-  console.log("FIELDS",fields)
+     
 
   const cartesianProduct = getCartesianProduct(getValues("variations"));
 
-  
-  console.log("VARIATIONS",getValues("variations"))
+  console.log("masuk")
 
   const variations = watch("variations");
 
@@ -156,6 +151,7 @@ export default function ProductVariableForm({ initialValues }: IProps) {
           </div>
 
           {/* Preview generation section start */}
+          { console.log("FIELATTR",cartesianProduct?.length)}
           {!!cartesianProduct?.length && (
             <div className="border-t border-dashed border-border-200 pt-5 md:pt-8 mt-5 md:mt-8">
               <Title className="text-lg uppercase text-center px-5 md:px-8 mb-0">
@@ -163,6 +159,9 @@ export default function ProductVariableForm({ initialValues }: IProps) {
               </Title>
               {cartesianProduct.map(
                 (fieldAttributeValue: any, index: number) => {
+
+                 
+
                   return (
                     <div
                       key={`fieldAttributeValues-${index}`}

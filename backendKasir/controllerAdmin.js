@@ -7,6 +7,9 @@ const replaceString = require('replace-string');
 var sharp = require('sharp');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const {
+    parse
+} = require('path');
 require('dotenv').config()
 
 
@@ -896,6 +899,8 @@ exports.products = function (req, res) {
 
 
 
+
+
                                                             var array_variation = [];
 
                                                             connection.query("SELECT a.id, c.id as attribute_id , a.attribute_value_id, b.id as id_values, b.value, b.meta, c.name, c.slug" +
@@ -1042,7 +1047,7 @@ exports.products = function (req, res) {
                                                                                                     },
                                                                                                     "tags": array_product_tag,
                                                                                                     "variations": array_variation,
-                                                                                                    "variation_option": array_variation_options
+                                                                                                    "variation_options": array_variation_options
                                                                                                 }
 
 

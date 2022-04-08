@@ -4,9 +4,6 @@ import { useModalAction, useModalState } from "./modal.context";
 const TagDeleteView = dynamic(() => import("@components/tag/tag-delete-view"));
 const TaxDeleteView = dynamic(() => import("@components/tax/tax-delete-view"));
 const BanCustomerView = dynamic(() => import("@components/user/user-ban-view"));
-const UserWalletPointsAddView = dynamic(
-  () => import("@components/user/user-wallet-points-add-view")
-);
 const ShippingDeleteView = dynamic(
   () => import("@components/shipping/shipping-delete-view")
 );
@@ -36,21 +33,6 @@ const DisApproveShopView = dynamic(
 const RemoveStaffView = dynamic(
   () => import("@components/shop/staff-delete-view")
 );
-
-const ExportImportView = dynamic(
-  () => import("@components/product/import-export-modal")
-);
-
-const AttributeExportImport = dynamic(
-  () => import("@components/attribute/attribute-import-export")
-);
-const UpdateRefundConfirmationView = dynamic(
-  () => import("@components/refund/refund-confirmation-view")
-);
-const RefundImageModal = dynamic(
-  () => import("@components/refund/refund-image-modal")
-);
-
 const ManagedModal = () => {
   const { isOpen, view } = useModalState();
   const { closeModal } = useModalAction();
@@ -69,11 +51,6 @@ const ManagedModal = () => {
       {view === "SHOP_APPROVE_VIEW" && <ApproveShopView />}
       {view === "SHOP_DISAPPROVE_VIEW" && <DisApproveShopView />}
       {view === "DELETE_STAFF" && <RemoveStaffView />}
-      {view === "UPDATE_REFUND" && <UpdateRefundConfirmationView />}
-      {view === "ADD_WALLET_POINTS" && <UserWalletPointsAddView />}
-      {view === "REFUND_IMAGE_POPOVER" && <RefundImageModal />}
-      {view === "EXPORT_IMPORT_PRODUCT" && <ExportImportView />}
-      {view === "EXPORT_IMPORT_ATTRIBUTE" && <AttributeExportImport />}
     </Modal>
   );
 };

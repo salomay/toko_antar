@@ -12,7 +12,7 @@
     "dev:shop-rest": "yarn workspace @pick-bazar/shop dev:rest",
     "build:shop-rest": "yarn workspace @pick-bazar/shop build:rest",
     "start:shop-rest": "yarn workspace @pick-bazar/shop start",
-    "dev:admin-rest": "concurrently --kill-others \"yarn workspace @marvel-mock/api-rest start:dev\" \"yarn workspace @marvel/admin-rest dev\"",
+    "dev:admin-rest": "yarn workspace @marvel/admin-rest dev",
     "build:admin-rest": "yarn workspace @marvel/admin-rest build",
     "start:admin-rest": "yarn workspace @marvel/admin-rest start"
   },
