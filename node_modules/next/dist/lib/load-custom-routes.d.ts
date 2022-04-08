@@ -1,4 +1,4 @@
-import { NextConfig } from '../next-server/server/config';
+import { NextConfig } from '../server/config';
 export declare type RouteHas = {
     type: 'header' | 'query' | 'cookie';
     key: string;
@@ -40,6 +40,7 @@ export declare function getRedirectStatus(route: {
     permanent?: boolean;
 }): number;
 export declare function normalizeRouteRegex(regex: string): string;
+export declare function modifyRouteRegex(regex: string, restrictedPaths?: string[]): string;
 export declare type RouteType = 'rewrite' | 'redirect' | 'header';
 export interface CustomRoutes {
     headers: Header[];

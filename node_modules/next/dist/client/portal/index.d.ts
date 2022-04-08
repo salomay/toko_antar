@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 declare type PortalProps = {
     children: React.ReactNode;
     type: string;

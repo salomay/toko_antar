@@ -1,2 +1,9 @@
-"use strict";exports.__esModule=true;exports.FatalError=void 0;class FatalError extends Error{}exports.FatalError=FatalError;
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+class FatalError extends Error {
+}
+exports.FatalError = FatalError;
+
 //# sourceMappingURL=fatal-error.js.map

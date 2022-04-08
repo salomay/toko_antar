@@ -38,5 +38,4 @@ export interface RouteLoader {
 export declare function markAssetError(err: Error): Error;
 export declare function isAssetError(err?: Error): boolean | undefined;
 export declare function getClientBuildManifest(): Promise<ClientBuildManifest>;
-declare function createRouteLoader(assetPrefix: string): RouteLoader;
-export default createRouteLoader;
+export declare function createRouteLoader(assetPrefix: string): RouteLoader;

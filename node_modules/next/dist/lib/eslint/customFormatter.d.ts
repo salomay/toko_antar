@@ -17,7 +17,7 @@ export interface LintResult {
     output?: string;
     source?: string;
 }
-export declare function formatResults(baseDir: string, results: LintResult[]): {
+export declare function formatResults(baseDir: string, results: LintResult[], format: (r: LintResult[]) => string): {
     output: string;
     totalNextPluginErrorCount: number;
     totalNextPluginWarningCount: number;
